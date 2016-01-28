@@ -1,0 +1,89 @@
+﻿@model WebApplication2.Table
+
+@{
+    ViewBag.Title = "AfterLoginTables";
+}
+
+<html>
+<head>
+
+    <style type="text/css">
+        #t {
+            color :blue;
+            font:bold;
+        }
+        body {
+            margin :auto;
+            text-align :center;
+            width:75%;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 700px;
+            min-width: 400px;
+            text-align: center;
+        }
+
+        caption {
+            caption-side: bottom;
+            font-weight: bold;
+            font-style: italic;
+            margin: 4px;
+        }
+
+        table, th, td {
+            border: 1px solid gray;
+        }
+
+        th, td {
+            height: 24px;
+            padding: 4px;
+            vertical-align: middle;
+        }
+
+    </style>
+</head>
+<body>
+    <h2>AfterLoginTables</h2>
+    <table align="center">
+        <tr id="t">
+            <td>Table</td>
+            <td>Etat de la table</td>
+            <td>N commande</td>
+            <td>Etat de la commande</td>
+        </tr>
+
+        @{
+
+
+
+            using (MyDatabaseEntities1 dc = new MyDatabaseEntities1())
+            {
+
+
+                var v = dc.Table.AsEnumerable();
+                if (v != null)
+                {
+                    foreach (var i in v)
+                    {
+                        if (@i.Serveur.ToString().Equals(@Session["LogedUserName"].ToString()))
+                        {
+                            <tr>
+                                <td align="center">@i.Id.ToString()</td>
+                                <td align="center">@i.etat.ToString()</td>
+                                <td align="center">@i.n_commande.ToString()</td>
+                                <td align="center">@i.etat_commande.ToString()</td>
+
+                            </tr>
+                        }
+
+
+                    }
+                }
+            }
+
+        }
+    </table>
+</body>
+</html>

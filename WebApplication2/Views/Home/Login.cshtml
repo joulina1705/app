@@ -1,0 +1,57 @@
+﻿@model WebApplication2.Users
+
+@{
+    ViewBag.Title = "Login";
+}
+<html>
+<head>
+    <style type="text/css">
+       
+        body {
+            margin: auto;
+            text-align: center;
+            width: 75%;
+        }
+    </style>
+</head>
+<body>
+    <h2>Login</h2>
+
+    @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+    {
+        //this is for creaing a form tag
+        @Html.AntiForgeryToken() //this is for preventing CSRF attack
+                            @Html.ValidationSummary(true)
+        if (@ViewBag.Message != null)
+        {
+            <div style="border:1px solid red">
+                @ViewBag.Message
+            </div>
+        }
+        <table align="center">
+            <tr>
+                <td>@Html.LabelFor(a => a.Username)</td>
+                <td>@Html.TextBoxFor(a => a.Username)</td>
+                <td>@Html.ValidationMessageFor(a => a.Username)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(a => a.Password)</td>
+                <td>@Html.TextBoxFor(a => a.Password)</td>
+                <td>@Html.ValidationMessageFor(a => a.Password)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Login" />
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    }
+</body>
+</html>
+@* This below line is for creating javascript section*@
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
